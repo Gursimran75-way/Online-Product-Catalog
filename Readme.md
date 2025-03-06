@@ -1,4 +1,4 @@
-# UserTemplate API
+# Online-Product-Catalog
 
 ![.NET](https://img.shields.io/badge/.NET-8.0-blueviolet) ![EF Core](https://img.shields.io/badge/EF%20Core-8.0-blue) ![JWT](https://img.shields.io/badge/JWT-Authentication-green)
 
