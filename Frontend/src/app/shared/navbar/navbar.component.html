@@ -1,0 +1,43 @@
+<mat-toolbar color="primary" class="navbar">
+  <!-- Brand -->
+  <div class="navbar-brand" routerLink="/app/home">
+    <mat-icon>people</mat-icon>
+    <span class="title">Home</span>
+  </div>
+
+  <!-- Hamburger Menu Toggle (Visible on Mobile) -->
+  <button mat-icon-button class="menu-toggle" (click)="toggleMenu()" *ngIf="isMobile">
+    <mat-icon>{{ showMenu ? 'close' : 'menu' }}</mat-icon>
+  </button>
+
+  <!-- Navigation Links (Logged In) -->
+  <div class="nav-links nav-links-main" [ngClass]="{'mobile-menu': isMobile && showMenu}" *ngIf="(authService.isLoggedIn$ | async)" [@fadeInOut]>
+    <div  [ngClass]="{'test': isMobile}"></div>
+    <a mat-button routerLink="/app/products">Products</a>
+    <a mat-button routerLink="/app/categories" *ngIf="(authService.user$ | async)?.role === 'Admin'">Categories</a>
+    <a mat-button routerLink="/app/analytics" *ngIf="(authService.user$ | async)?.role === 'Admin'">Analytics</a>
+    <a mat-button routerLink="/app/import-products" *ngIf="(authService.user$ | async)?.role === 'Admin'">Import Products</a>
+  </div>
+
+  <span class="spacer"></span>
+
+  <!-- Auth Links -->
+  <div class="nav-links nav-links-auth" [ngClass]="{'mobile-menu': isMobile && showMenu}" [@fadeInOut]>
+    <ng-container *ngIf="!(authService.isLoggedIn$ | async); else loggedIn">
+      <a mat-raised-button routerLink="/auth/login" class="nav-button profile">
+        <mat-icon>login</mat-icon> Login
+      </a>
+      <a mat-raised-button routerLink="/auth/register" class="nav-button signup">
+        <mat-icon>person_add</mat-icon> Signup
+      </a>
+    </ng-container>
+    <ng-template #loggedIn>
+      <a mat-raised-button routerLink="/app/profile" class="nav-button profile">
+        <mat-icon>account_circle</mat-icon> Profile
+      </a>
+      <button mat-raised-button (click)="authService.logout()" class="nav-button logout">
+        <mat-icon>logout</mat-icon> Logout
+      </button>
+    </ng-template>
+  </div>
+</mat-toolbar>

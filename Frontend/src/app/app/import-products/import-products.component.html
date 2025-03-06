@@ -1,0 +1,17 @@
+<div class="import-container" @fadeIn>
+  <mat-card class="import-card">
+    <h2 class="page-title">Import Products</h2>
+    <div class="import-form">
+      <div class="file-input-wrapper">
+        <input type="file" accept=".xlsx" (change)="onFileSelected($event)" id="fileInput" class="file-input">
+        <label for="fileInput" class="file-label">
+          <mat-icon>upload_file</mat-icon>
+          {{ selectedFile ? selectedFile.name : 'Choose an Excel file (.xlsx)' }}
+        </label>
+      </div>
+      <button mat-raised-button color="primary" (click)="importProducts()" [disabled]="!selectedFile" class="import-button">
+        <mat-icon>cloud_upload</mat-icon> Import
+      </button>
+    </div>
+  </mat-card>
+</div>

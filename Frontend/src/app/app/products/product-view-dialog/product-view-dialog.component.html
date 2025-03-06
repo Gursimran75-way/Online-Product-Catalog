@@ -1,0 +1,27 @@
+<div class="dialog-container" @fadeIn>
+  <h2 mat-dialog-title class="dialog-title">Product Details</h2>
+  <mat-dialog-content class="dialog-content">
+    <ng-container *ngIf="product; else loading">
+      <mat-card class="product-card" @cardAnimation>
+        <img mat-card-image [src]="product.image" alt="{{ product.name }}" class="product-image">
+        <mat-card-content class="product-content">
+          <h3>{{ product.name }}</h3>
+          <p><strong>Price:</strong> ${{ product.price }}</p>
+          <p><strong>Category:</strong> {{ product.categoryName }}</p>
+          <p><strong>Views:</strong> {{ product.viewCount }}</p>
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
+    <ng-template #loading>
+      <div class="loading-container">
+        <mat-spinner diameter="40"></mat-spinner>
+        <p>Loading product details...</p>
+      </div>
+    </ng-template>
+  </mat-dialog-content>
+  <mat-dialog-actions class="dialog-actions">
+    <button mat-raised-button color="primary" (click)="onClose()" class="close-button">
+      <mat-icon>close</mat-icon> Close
+    </button>
+  </mat-dialog-actions>
+</div>

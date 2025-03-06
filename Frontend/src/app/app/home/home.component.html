@@ -1,0 +1,22 @@
+<mat-card class="home-card" @fadeIn>
+  <mat-card-header class="header">
+    <mat-card-title>
+      <mat-icon>home</mat-icon> Hello, {{ (authService.user$ | async)?.name }}!
+    </mat-card-title>
+    <mat-card-subtitle>Welcome back</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content class="content">
+    <div class="welcome-message">
+      <p class="greeting">Great to see you again!</p>
+      <p class="info">Explore your profile or manage your account below.</p>
+    </div>
+    <div class="actions">
+      <button mat-raised-button color="primary" routerLink="/app/profile" class="action-button">
+        <mat-icon>account_circle</mat-icon> View Profile
+      </button>
+      <button mat-raised-button color="accent" (click)="authService.logout()" class="action-button">
+        <mat-icon>logout</mat-icon> Logout
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>

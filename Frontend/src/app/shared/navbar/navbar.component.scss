@@ -1,0 +1,152 @@
+.navbar {
+  background: linear-gradient(90deg, #3f51b5 0%, #5c6bc0 100%);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Enhanced shadow for navbar */
+  padding: 0 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    mat-icon {
+      font-size: 28px;
+      height: 28px;
+      width: 28px;
+      color: #fff;
+    }
+
+    .title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+  }
+
+  .menu-toggle {
+    display: none; /* Hidden by default, shown on mobile */
+    color: #fff;
+
+    mat-icon {
+      font-size: 28px;
+      height: 28px;
+      width: 28px;
+    }
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    a, button {
+      font-size: 1.1rem;
+      color: #fff;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        transform: translateY(-2px);
+      }
+
+      mat-icon {
+        margin-right: 5px;
+        vertical-align: middle;
+      }
+    }
+
+    &.nav-links-main {
+      flex-grow: 1; /* Takes available space on desktop */
+    }
+
+    &.nav-links-auth {
+      .profile{
+        background-color: #1e88e5;
+      }
+      .nav-button {
+        padding: 0 15px;
+        &.signup {
+          background-color: #42a5f5;
+          &:hover {
+            background-color: #1e88e5;
+          }
+        }
+        &.logout {
+          background-color: #ef5350;
+          &:hover {
+            background-color: #e53935;
+          }
+        }
+      }
+    }
+  }
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+}
+
+
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 10px 15px;
+    flex-wrap: wrap;
+    position: relative;
+
+    .navbar-brand {
+      flex: 1;
+    }
+
+    .menu-toggle {
+      display: block;
+    }
+
+    .nav-links {
+      display: none; /* Hidden by default on mobile */
+    }
+
+    .mobile-menu {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: linear-gradient(90deg, #3f51b5 0%, #5c6bc0 100%);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); /* Shadow for mobile menu */
+      padding: 15px;
+      gap: 10px;
+      z-index: 999;
+
+      a, button {
+        width: 100%;
+        max-width: 200px;
+        margin: 5px auto;
+        text-align: center;
+      }
+    }
+
+    .test{
+      margin-top: 120px;
+    }
+
+    .spacer {
+      display: none; /* Hidden on mobile */
+    }
+  }
+}

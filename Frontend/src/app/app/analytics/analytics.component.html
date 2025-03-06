@@ -1,0 +1,79 @@
+<div class="analytics-container">
+  <h1 class="page-title" @fadeIn>Analytics Dashboard</h1>
+
+  <div class="analytics-grid">
+    <!-- Product Count by Category -->
+    <mat-card class="analytics-card" @cardAnimation>
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>category</mat-icon> Product Count by Category
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <ul class="category-list">
+          <li *ngFor="let item of productCountByCategory" class="category-item">
+            <span class="category-name">{{ item.name }}</span>: 
+            <span class="category-count">{{ item.productCount }}</span>
+          </li>
+        </ul>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Most Viewed Product (Overall) -->
+    <mat-card class="analytics-card" @cardAnimation>
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>star</mat-icon> Most Viewed Product (Overall)
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <ng-container *ngIf="mostViewedProduct; else noDataOverall">
+          <mat-card class="product-box" @productAnimation>
+            <img mat-card-image [src]="mostViewedProduct.image" alt="{{ mostViewedProduct.name }}" class="product-image">
+            <mat-card-content class="product-content">
+              <h3>{{ mostViewedProduct.name }}</h3>
+              <p><strong>Price:</strong> ${{ mostViewedProduct.price }}</p>
+              <p><strong>Category:</strong> {{ mostViewedProduct.categoryName }}</p>
+              <p><strong>Views:</strong> {{ mostViewedProduct.viewCount }}</p>
+            </mat-card-content>
+          </mat-card>
+        </ng-container>
+        <ng-template #noDataOverall>
+          <p class="no-data">No data available</p>
+        </ng-template>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Most Viewed Product by Category -->
+    <mat-card class="analytics-card" @cardAnimation>
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>filter_list</mat-icon> Most Viewed Product by Category
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-form-field appearance="outline" class="category-select">
+          <mat-label>Select Category</mat-label>
+          <mat-select [(ngModel)]="selectedCategoryId" (ngModelChange)="onCategoryChange()">
+            <mat-option [value]="null">Select a category</mat-option>
+            <mat-option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <ng-container *ngIf="mostViewedByCategory; else noDataByCategory">
+          <mat-card class="product-box" @productAnimation>
+            <img mat-card-image [src]="mostViewedByCategory.image" alt="{{ mostViewedByCategory.name }}" class="product-image">
+            <mat-card-content class="product-content">
+              <h3>{{ mostViewedByCategory.name }}</h3>
+              <p><strong>Price:</strong> ${{ mostViewedByCategory.price }}</p>
+              <p><strong>Category:</strong> {{ mostViewedByCategory.categoryName }}</p>
+              <p><strong>Views:</strong> {{ mostViewedByCategory.viewCount }}</p>
+            </mat-card-content>
+          </mat-card>
+        </ng-container>
+        <ng-template #noDataByCategory>
+          <p *ngIf="selectedCategoryId" class="no-data">No data available for this category</p>
+        </ng-template>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

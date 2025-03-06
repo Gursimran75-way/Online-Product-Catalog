@@ -1,0 +1,94 @@
+<div class="products-container">
+  <!-- Add Product Button and Form -->
+  <div class="add-product-toggle">
+    <button mat-raised-button color="primary" (click)="toggleAddForm()" class="toggle-button" *ngIf="isAdmin">
+      <mat-icon>{{ showAddForm ? 'close' : 'add' }}</mat-icon>
+      {{ showAddForm ? 'Close Form' : 'Add Product' }}
+    </button>
+    <div class="add-product" *ngIf="showAddForm && isAdmin" [@slideInOut]>
+      <h2>Add New Product</h2>
+      <form (ngSubmit)="addProduct()" class="add-form">
+        <mat-form-field appearance="outline">
+          <mat-label>Name</mat-label>
+          <input matInput [(ngModel)]="newProduct.name" name="name" required>
+          <mat-icon matPrefix>label</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Price</mat-label>
+          <input matInput type="number" [(ngModel)]="newProduct.price" name="price" required>
+          <mat-icon matPrefix>attach_money</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Category</mat-label>
+          <mat-select [(ngModel)]="newProduct.categoryId" name="categoryId" required>
+            <mat-option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</mat-option>
+          </mat-select>
+          <mat-icon matPrefix>category</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Image URL</mat-label>
+          <input matInput [(ngModel)]="newProduct.image" name="image" required>
+          <mat-icon matPrefix>image</mat-icon>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit" class="add-button">
+          <mat-icon>add</mat-icon> Add Product
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <h1 class="page-title" @fadeIn>Our Products</h1>
+
+  <!-- Filters -->
+  <div class="filters" @fadeIn>
+    <mat-form-field appearance="outline" class="filter-field">
+      <mat-label>Search by Name</mat-label>
+      <input matInput [(ngModel)]="searchTerm" (ngModelChange)="onSearchChange()" placeholder="Search products...">
+      <mat-icon matPrefix>search</mat-icon>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="filter-field">
+      <mat-label>Filter by Category</mat-label>
+      <mat-select [(ngModel)]="selectedCategoryId" (ngModelChange)="onCategoryChange()">
+        <mat-option [value]="null">All Categories</mat-option>
+        <mat-option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</mat-option>
+      </mat-select>
+      <mat-icon matPrefix>filter_list</mat-icon>
+    </mat-form-field>
+  </div>
+
+  <!-- Product Grid or No Products Message -->
+  <div class="product-grid-container">
+    <ng-container *ngIf="filteredProducts.length > 0; else noProducts">
+      <div class="product-grid">
+        <mat-card *ngFor="let product of filteredProducts" class="product-card" @cardAnimation>
+          <img mat-card-image [src]="product.image" alt="{{ product.name }}" class="product-image">
+          <mat-card-content class="product-content">
+            <h3>{{ product.name }}</h3>
+            <p><strong>Price:</strong> ${{ product.price }}</p>
+            <p><strong>Category:</strong> {{ product.categoryName }}</p>
+            <p><strong>Views:</strong> {{ product.viewCount }}</p>
+          </mat-card-content>
+          <mat-card-actions class="product-actions">
+            <button mat-raised-button color="accent" (click)="viewProduct(product.id)">
+              <mat-icon>visibility</mat-icon> View
+            </button>
+            <ng-container *ngIf="isAdmin">
+              <button mat-raised-button color="primary" (click)="editProduct(product)">
+                <mat-icon>edit</mat-icon> Edit
+              </button>
+              <button mat-raised-button color="warn" (click)="deleteProduct(product.id)">
+                <mat-icon>delete</mat-icon> Delete
+              </button>
+            </ng-container>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </ng-container>
+    <ng-template #noProducts>
+      <div class="no-products" @fadeIn>
+        <mat-icon class="no-products-icon">inventory</mat-icon>
+        <p>No products available</p>
+      </div>
+    </ng-template>
+  </div>
+</div>
