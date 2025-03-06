@@ -43,11 +43,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 // Register UserService
 builder.Services.AddScoped<IUserService, UserService>();
 
-builder.Services.AddScoped<ProductService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
-builder.Services.AddScoped<AnalyticsService>();
+builder.Services.AddScoped<IAnalyticsService, AnalyticsService>();
 
-builder.Services.AddScoped<CategoryService>();
+builder.Services.AddScoped<IAnalyticsService, CategoryService>();
 
 
 
