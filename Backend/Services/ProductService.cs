@@ -6,7 +6,7 @@ using UserTemplate.Interfaces;
 
 namespace UserTemplate.Services
 {
-    public class ProductService: IProductService
+    public class ProductService
     {
         private readonly AppDbContext _context;
 
