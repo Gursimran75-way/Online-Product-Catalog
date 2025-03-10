@@ -5,7 +5,7 @@ using UserTemplate.Interfaces;
 
 namespace UserTemplate.Services
 {
-    public class AnalyticsService: IAnalyticsService
+    public class AnalyticsService
     {
         private readonly AppDbContext _context;
 
